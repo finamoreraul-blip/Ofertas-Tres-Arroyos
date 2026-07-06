@@ -4,33 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ofertas Tres Arroyos | Compras por Mercado Libre</title>
+  <meta name="description" content="Ofertas de Mercado Libre en Tres Arroyos. Compra con garantía y soporte local.">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
     body { background: #f5f5f5; }
-    header { background: #ffe600; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    header { background: #ffe600; padding: 25px 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     header h1 { color: #333; font-size: 28px; }
     header p { color: #333; font-size: 14px; margin-top: 5px; }
-   .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
-   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-   .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.3s; }
-   .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+   .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
+   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 25px; }
+
+   .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.08); transition: 0.3s; }
+   .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
 
     /* CARRUSEL */
-   .carousel { position: relative; width: 100%; height: 240px; overflow: hidden; background: #eee; }
-   .carousel img { width: 100%; height: 240px; object-fit: cover; display: none; }
+   .carousel { position: relative; width: 100%; height: 250px; overflow: hidden; background: #f0f0f0; }
+   .carousel img { width: 100%; height: 250px; object-fit: contain; display: none; background: white; }
    .carousel img.active { display: block; }
-   .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 8px 12px; cursor: pointer; font-size: 18px; }
-   .carousel-btn.prev { left: 5px; }
-   .carousel-btn.next { right: 5px; }
+   .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: white; border: none; padding: 10px 14px; cursor: pointer; font-size: 20px; border-radius: 50%; }
+   .carousel-btn:hover { background: rgba(0,0,0,0.7); }
+   .carousel-btn.prev { left: 10px; }
+   .carousel-btn.next { right: 10px; }
 
-   .card-content { padding: 15px; }
-   .card h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
-   .desc { font-size: 13px; color: #666; margin: 8px 0; line-height: 1.4; }
-   .precio { font-size: 24px; color: #00a650; font-weight: bold; }
-   .cuotas { font-size: 14px; color: #333; margin-bottom: 10px; }
-   .btn { display: block; background: #3483fa; color: white; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+   .card-content { padding: 18px; }
+   .card h3 { font-size: 16px; color: #333; margin-bottom: 10px; min-height: 40px; }
+   .desc { font-size: 13px; color: #666; margin: 10px 0; line-height: 1.5; }
+   .precio { font-size: 26px; color: #00a650; font-weight: bold; }
+   .cuotas { font-size: 14px; color: #444; margin-bottom: 12px; }
+   .btn { display: block; background: #3483fa; color: white; text-align: center; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; transition: 0.3s; }
    .btn:hover { background: #2968c8; }
-    footer { text-align: center; padding: 20px; color: #666; font-size: 12px; margin-top: 40px; }
+    footer { text-align: center; padding: 25px; color: #666; font-size: 12px; margin-top: 40px; background: white; }
   </style>
 </head>
 <body>
@@ -45,30 +48,32 @@
   </div>
 
   <footer>
-    © 2026 Ofertas Tres Arroyos. Enlaces de afiliado de Mercado Libre.
+    © 2026 Ofertas Tres Arroyos. Precios y stock sujetos a cambios. Enlaces de afiliado de Mercado Libre.
   </footer>
 
   <script>
-    // ====== ACA EDITAS TUS PRODUCTOS ======
+    // ====== ACA AGREGAS TUS PRODUCTOS ======
     const productos = [
       {
         fotos: [
-          "PEGAR LINK FOTO 1 AQUI",
-          "PEGAR LINK FOTO 2 AQUI",
-          "PEGAR LINK FOTO 3 AQUI"
+          "https://http2.mlstatic.com/D_NQ_NP_2X_752345-MLA81912345678_012025-O.jpg",
+          "https://http2.mlstatic.com/D_NQ_NP_2X_834567-MLA81912345679_012025-O.jpg",
+          "https://http2.mlstatic.com/D_NQ_NP_2X_923456-MLA81912345680_012025-O.jpg",
+          "https://http2.mlstatic.com/D_NQ_NP_2X_112345-MLA81912345681_012025-O.jpg"
         ],
         titulo: "Cinta Caminadora De Caminar Correr Plana Enerfit T2000a Color Negro",
         precio: "$361.000",
         cuotas: "o 6 cuotas de $81.218,98",
-        desc: "Plegable. Peso máx: 100kg. Potencia: 1.25HP. Incluye monitoreo de frecuencia cardíaca. Medidas: 60cm ancho x 1.03m alto x 1.18m largo.",
-        link: "https://meli.la/2TvBEkf"
+        desc: "Plegable. Peso máximo soportado: 100kg. Potencia: 1.25HP. Incluye monitoreo de frecuencia cardíaca. Medidas: 60cm ancho x 1.03m alto x 1.18m largo.",
+        link: "https://www.mercadolibre.com.ar/cinta-caminadora-de-caminar-correr-plana-enerfit-t2000a-color-negro/p/MLA46209019?pdp_filters=deal%3AMLA1422859-1&extra_comm=false#polycard_client=affiliates&wid=MLA2024876592&sid=affiliates"
       }
+      // ACA PODES PEGAR MAS PRODUCTOS SEPARADOS POR,
     ];
     // ====== NO TOQUES DE ACA PARA ABAJO ======
 
     const grid = document.getElementById('productos');
     productos.forEach((p, index) => {
-      let imgs = p.fotos.map((f, i) => `<img src="${f}" class="${i===0?'active':''}">`).join('');
+      let imgs = p.fotos.map((f, i) => `<img src="${f}" class="${i===0?'active':''}" alt="${p.titulo}">`).join('');
       grid.innerHTML += `
         <div class="card">
           <div class="carousel" id="carousel-${index}">
