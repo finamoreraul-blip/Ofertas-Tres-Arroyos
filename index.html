@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ofertas Tres Arroyos | Compras por Mercado Libre</title>
-  <meta name="description" content="Ofertas de Mercado Libre en Tres Arroyos. Compra con garantía y soporte local.">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
     body { background: #f5f5f5; }
@@ -16,11 +15,11 @@
   .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.08); transition: 0.3s; }
   .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
 
-    /* CARRUSEL */
-  .carousel { position: relative; width: 100%; height: 250px; overflow: hidden; background: #f0f0f0; }
+    /* CARRUSEL CHICO */
+  .carousel { position: relative; width: 100%; height: 250px; overflow: hidden; background: #f0f0f0; cursor: zoom-in; }
   .carousel img { width: 100%; height: 250px; object-fit: contain; display: none; background: white; }
   .carousel img.active { display: block; }
-  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: white; border: none; padding: 10px 14px; cursor: pointer; font-size: 20px; border-radius: 50%; }
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: white; border: none; padding: 10px 14px; cursor: pointer; font-size: 20px; border-radius: 50%; z-index: 2; }
   .carousel-btn:hover { background: rgba(0,0,0,0.7); }
   .carousel-btn.prev { left: 10px; }
   .carousel-btn.next { right: 10px; }
@@ -32,6 +31,16 @@
   .cuotas { font-size: 14px; color: #444; margin-bottom: 12px; }
   .btn { display: block; background: #3483fa; color: white; text-align: center; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; transition: 0.3s; }
   .btn:hover { background: #2968c8; }
+
+    /* LIGHTBOX - EL ZOOM */
+  .lightbox { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90%; max-height: 80%; object-fit: contain; }
+  .lightbox-close { position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; font-weight: bold; cursor: pointer; }
+  .lightbox-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px 20px; cursor: pointer; font-size: 30px; border-radius: 50%; }
+  .lightbox-btn.prev { left: 30px; }
+  .lightbox-btn.next { right: 30px; }
+
     footer { text-align: center; padding: 25px; color: #666; font-size: 12px; margin-top: 40px; background: white; }
   </style>
 </head>
@@ -46,12 +55,19 @@
     <div class="grid" id="productos"></div>
   </div>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="cerrarLightbox()">&times;</span>
+    <button class="lightbox-btn prev" onclick="cambiarLightbox(-1)">‹</button>
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-btn next" onclick="cambiarLightbox(1)">›</button>
+  </div>
+
   <footer>
-    © 2026 Ofertas Tres Arroyos. Precios y stock sujetos a cambios. Enlaces de afiliado de Mercado Libre.
+    © 2026 Ofertas Tres Arroyos. Precios y stock sujetos a cambios.
   </footer>
 
   <script>
-    // ====== ACA AGREGAS TUS PRODUCTOS ======
     const productos = [
       {
         fotos: [
@@ -66,17 +82,19 @@
         link: "https://www.mercadolibre.com.ar/cinta-caminadora-de-caminar-correr-plana-enerfit-t2000a-color-negro/p/MLA46209019?pdp_filters=deal%3AMLA1422859-1&extra_comm=false#polycard_client=affiliates&wid=MLA2024876592&sid=affiliates"
       }
     ];
-    // ====== NO TOQUES DE ACA PARA ABAJO ======
+
+    let lightboxIndex = 0;
+    let lightboxFotos = [];
 
     const grid = document.getElementById('productos');
     productos.forEach((p, index) => {
-      let imgs = p.fotos.map((f, i) => `<img src="${f}" class="${i===0?'active':''}" alt="${p.titulo}">`).join('');
+      let imgs = p.fotos.map((f, i) => `<img src="${f}" class="${i===0?'active':''}" alt="${p.titulo}" onclick="abrirLightbox(${index})">`).join('');
       grid.innerHTML += `
         <div class="card">
           <div class="carousel" id="carousel-${index}">
             ${imgs}
-            <button class="carousel-btn prev" onclick="cambiarFoto(${index}, -1)">‹</button>
-            <button class="carousel-btn next" onclick="cambiarFoto(${index}, 1)">›</button>
+            <button class="carousel-btn prev" onclick="event.stopPropagation(); cambiarFoto(${index}, -1)">‹</button>
+            <button class="carousel-btn next" onclick="event.stopPropagation(); cambiarFoto(${index}, 1)">›</button>
           </div>
           <div class="card-content">
             <h3>${p.titulo}</h3>
@@ -97,6 +115,28 @@
       activeIndex = (activeIndex + dir + imgs.length) % imgs.length;
       imgs[activeIndex].classList.add('active');
     }
+
+    function abrirLightbox(productoIndex) {
+      lightboxFotos = productos[productoIndex].fotos;
+      const carousel = document.getElementById(`carousel-${productoIndex}`);
+      lightboxIndex = [...carousel.querySelectorAll('img')].findIndex(img => img.classList.contains('active'));
+      document.getElementById('lightbox-img').src = lightboxFotos[lightboxIndex];
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function cerrarLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    function cambiarLightbox(dir) {
+      lightboxIndex = (lightboxIndex + dir + lightboxFotos.length) % lightboxFotos.length;
+      document.getElementById('lightbox-img').src = lightboxFotos[lightboxIndex];
+    }
+
+    // Cerrar con ESC o click afuera
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if(e.target.id === 'lightbox') cerrarLightbox();
+    });
   </script>
 
 </body>
