@@ -37,7 +37,39 @@
 .lightbox-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px 20px; cursor: pointer; font-size: 30px; border-radius: 50%; }
 .lightbox-btn.prev { left: 30px; }
 .lightbox-btn.next { right: 30px; }
-    footer { text-align: center; padding: 25px; color: #666; font-size: 12px; margin-top: 40px; background: white; }
+
+/* BOTON FLOTANTE WHATSAPP */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 35px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  animation: pulse 2s infinite;
+}
+.whatsapp-float:hover {
+  background-color: #1ebe57;
+  transform: scale(1.1);
+}
+@keyframes pulse {
+ 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+footer { text-align: center; padding: 25px; color: #666; font-size: 12px; margin-top: 40px; background: white; }
   </style>
 </head>
 <body>
@@ -57,6 +89,13 @@
     <img id="lightbox-img" src="" alt="">
     <button class="lightbox-btn next" onclick="cambiarLightbox(1)">›</button>
   </div>
+
+  <!-- BOTON FLOTANTE -->
+  <a href="https://wa.me/5492983389710?text=Hola!%20Vi%20Ofertas%20Tres%20Arroyos%20y%20necesito%20ayuda"
+     class="whatsapp-float"
+     target="_blank">
+     💬
+  </a>
 
   <footer>
     © 2026 Ofertas Tres Arroyos. Precios y stock sujetos a cambios.
